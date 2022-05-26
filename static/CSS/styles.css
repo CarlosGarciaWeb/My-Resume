@@ -1,0 +1,277 @@
+/* Notes to self:
+
+Media @ text when < 1800 46.2px, less than that at 32px for header titles on content
+980px width 32px font header titles
+
+for header portion media @ 28.8px when > 1800 > 21.6px --- 1280px > 20px, 980px width
+font 28px
+
+description of grid 1.1rem fontsize; grid titles 1.31rem
+
+ */
+
+
+/* Main page component */
+
+
+body {
+  line-height: 1.6;
+}
+
+
+hr {
+  width: 67%;
+  margin: 15% auto 0 auto;
+}
+
+@media (max-width:980px){
+  hr {
+    margin: 50% auto 0 auto;
+  }
+}
+
+
+
+/* Header section */
+
+.header_portion {
+  margin: 0;
+  display: block;
+  position: fixed;
+  left: 0;
+  text-align: center;
+  padding: 1.5% 4.5%;
+}
+
+.heading {
+  margin-top: 4rem;
+}
+
+.heading img {
+  border-radius: 100%;
+}
+
+
+
+@media (max-width: 1074px){
+  .header_portion h1 {
+    font-size: 2rem;
+  }
+  .header_portion p {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width:981px) and (min-height:950px) {
+    .header_portion {
+        position: relative;
+        width: 100%;
+        width: 100vw;
+        margin: 0;
+        display: inline;
+        padding: 5% 2%;
+    }
+
+    .header_portion h1, p, a{
+      position: relative;
+      top: 3rem;
+      text-align: center;
+    }
+    .header_portion img {
+      float: left;
+      position: relative;
+      top: 0;
+    }
+    .content {
+        position: relative;
+        width: 100%;
+        width: 100vw;
+        padding: 15% 4%;
+    }
+    .content h1{
+      font-size: 2rem;
+    }
+    .content p {
+      font-size: 1rem;
+    }
+}
+
+@media (max-width:980px) {
+  .header_portion {
+      position: relative;
+      width: 100%;
+      width: 100vw;
+      margin: 0;
+      display: inline;
+      padding: 5% 2%;
+  }
+
+  .header_portion h1, p, a{
+    position: relative;
+    top: 3rem;
+    text-align: center;
+  }
+  .header_portion img {
+    float: left;
+    position: relative;
+    top: 0;
+  }
+}
+
+.header_portion a {
+  font-size: 1.5rem;
+}
+
+.self-description {
+  margin: 0 0 4rem;
+}
+
+@media (max-width:900px) {
+  .header_portion img {
+    top: 1rem;
+  }
+}
+
+
+@media (max-width:580px){
+  .header_portion h1{
+    font-size: 1.75rem;
+  }
+  .header_portion p {
+    font-size: 1rem;
+  }
+}
+
+
+/* CONTENT */
+
+.content {
+  /* width: 50%; */
+  background-color: #D7D9E2;
+  margin: 0;
+  position: absolute;
+  display: block;
+  right: 0;
+  text-align: center;
+}
+
+body {
+  background-color: transparent;
+}
+
+
+
+
+/* Bio section */
+
+@media (min-width:981px) and (min-height:950px) {
+
+      .header_portion h1, p, a{
+        position: relative;
+        top: 3rem;
+        text-align: center;
+      }
+      .header_portion img {
+        float: left;
+        position: relative;
+        top: 0;
+      }
+      .content {
+          position: relative;
+          width: 100%;
+          width: 100vw;
+          padding: 15% 4%;
+      }
+      .content h1{
+        font-size: 2rem;
+      }
+      .content p {
+        font-size: 1rem;
+      }
+}
+
+@media (max-width:980px) {
+  .content {
+      position: relative;
+      width: 100%;
+      width: 100vw;
+      padding: 15% 4%;
+  }
+  .content h1{
+    font-size: 2rem;
+  }
+  .content p {
+    font-size: 1rem;
+  }
+}
+
+
+.biography {
+  padding: 15% 3%;
+}
+
+
+
+/* experiences cols container-fluids */
+
+.col-xxl-6 {
+  margin: 5% auto 0 auto;
+}
+
+.col-xxl-6 h3 {
+    font-size: 1.3rem;
+}
+
+.col-xxl-6 li {
+  text-align: left;
+}
+
+.professional-experiences {
+  line-height: 1.8;
+}
+
+@media (max-width:1800px){
+  .professional-experiences h2 {
+    font-size: 1.8rem;
+  }
+  .professional-experiences h3 {
+    font-size: 1.5rem;
+  }
+  .professional-experiences p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width:980px) {
+  .col-xxl-6 {
+    margin: 8% auto 0 auto;
+  }
+}
+/* certifications carousel*/
+
+.carousel-control-next, .carousel-control-prev {
+  filter: invert(100%);
+  padding-top: 24%;
+}
+
+.cert_h1 {
+    margin-top: 25%;
+}
+
+@media (max-width:768px) {
+  .certificate {
+    width: 15.06rem;
+    height: 18.75rem;
+  }
+  .carousel-control-next, .carousel-control-prev {
+    padding-top: 45%;
+  }
+}
+
+/* aspirations container fluids*/
+
+
+/* Contact me section, use flask and python to send automatic message with smbtp gmail */
+
+
+/* footer */
