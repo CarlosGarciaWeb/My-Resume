@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 import smtplib
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, send_from_directory, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap4
 from flask_wtf import FlaskForm
@@ -115,6 +115,12 @@ def home():
     return render_template("index.html", img_actv=active_cert, cert_items=cert_items, company=experience_companies
                            , job_date=job_date, job_resp=job_resp, job_title=job_title)
 
+
+# -------------------------------- Download CV ------------------------------------------------------------------------
+
+@app.route("/download")
+def download():
+    return send_from_directory('static', filename='Carlos Garcia English Resume 2022.pdf')
 
 if __name__ == "__main__":
     app.run(debug=True)
