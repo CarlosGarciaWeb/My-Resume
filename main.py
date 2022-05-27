@@ -7,7 +7,19 @@ from flask_bootstrap import Bootstrap4
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, validators
 from wtforms.validators import DataRequired
+from datetime import date
 
+
+# ---------------------------------- Age Calculation ------------------------------------------------------------------
+
+year_born = 1995
+
+year = date.today().year
+
+month = date.today().month
+
+age = year-year_born if month >= 2 else year-year_born-1
+print(age)
 
 
 # ---------------------------------- Certifications list ---------------------------------------------------------------
@@ -113,7 +125,7 @@ def home():
     job_resp = [resp[1:-1] for resp in experience_list]
     job_date = [date[-1] for date in experience_list]
     return render_template("index.html", img_actv=active_cert, cert_items=cert_items, company=experience_companies
-                           , job_date=job_date, job_resp=job_resp, job_title=job_title)
+                           , job_date=job_date, job_resp=job_resp, job_title=job_title, age=age)
 
 
 # -------------------------------- Download CV ------------------------------------------------------------------------
