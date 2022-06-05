@@ -20,7 +20,7 @@ month = date.today().month
 
 age = year-year_born if month >= 2 else year-year_born-1
 print(age)
-
+print("Something")
 
 # ---------------------------------- Certifications list ---------------------------------------------------------------
 img_folder = "static/images/Certifications"
