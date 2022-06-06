@@ -6,7 +6,6 @@ from flask import Flask, render_template, request, redirect, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
-from psycopg2 import IntegrityError
 from wtforms import StringField, PasswordField, SubmitField, validators
 from wtforms.validators import DataRequired
 from datetime import date
@@ -74,15 +73,18 @@ if not os.path.isfile('sqlite:///certifications.db'):
 # DB AND INFO ADDED COMMENTING OUT CODE TO ADD INFO TO DATABASE
 
 dataframe = pd.read_excel("professional experiences.xlsx", sheet_name="Sheet2")
+
+
+
+
 for position in range(len(dataframe)):
-    try:
+    result = db.session.query(db.session.query(Certifications).filter_by(path=dataframe.img[position]).exists()).scalar()
+    if result:
+        pass
+    else:
         new_cert = Certifications(id=position+1, path=dataframe.img[position], url=dataframe.cert[position])
         db.session.add(new_cert)
         db.session.commit()
-    except:
-        print("Data is already in database")
-    else:
-        pass
 
 
 
