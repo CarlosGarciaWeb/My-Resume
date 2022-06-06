@@ -37,8 +37,7 @@ def organize_cert_path():
     return img_path
 
 
-organize_cert_path()
-# print(img_path)
+
 
 
 # ---------------------------------- Flask set up App ------------------------------------------------------------------
@@ -72,14 +71,14 @@ if not os.path.isfile('sqlite:///certifications.db'):
     db.create_all()
 
 # DB AND INFO ADDED COMMENTING OUT CODE TO ADD INFO TO DATABASE
-# cert_list = organize_cert_path()
+
 # cert_url = pd.read_excel("professional experiences.xlsx", sheet_name="Sheet2").columns
 
-# if cert_list:
-#     for position in range(0, len(cert_list)):
-#         new_cert = Certifications(id=position+1, path=cert_list[position], url=cert_url[position])
-#         db.session.add(new_cert)
-#         db.session.commit()
+if cert_list:
+    for position in range(0, len(cert_list)):
+        new_cert = Certifications(id=position+1, path=cert_list[position], url=cert_url[position])
+        db.session.add(new_cert)
+        db.session.commit()
 
 
 
