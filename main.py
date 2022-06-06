@@ -44,7 +44,7 @@ organize_cert_path()
 # ---------------------------------- Flask set up App ------------------------------------------------------------------
 
 app = Flask(__name__)
-
+app.config['SECRET_KEY'] = os.environ.get('RESUME_KEY')
 bootstrap = Bootstrap(app)
 
 
@@ -54,7 +54,7 @@ bootstrap = Bootstrap(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL','sqlite:///certifications.db')
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = os.environ.get['RESUME_KEY']
+
 db = SQLAlchemy(app)
 
 
