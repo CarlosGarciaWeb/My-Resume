@@ -47,14 +47,14 @@ app = Flask(__name__)
 
 bootstrap = Bootstrap(app)
 
-app.secret_key = os.environ.get("RESUME_KEY")
+
 
 # ---------------------------------- DataBase SQLite -------------------------------------------------------------------
 # ---------------------------------- images certifications -------------------------------------------------------------
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL','sqlite:///certifications.db')
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+app.config['SECRET_KEY'] = os.environ.get['RESUME_KEY']
 db = SQLAlchemy(app)
 
 
