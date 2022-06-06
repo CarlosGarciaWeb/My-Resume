@@ -1,6 +1,5 @@
 from email.message import EmailMessage
 import os
-from django.forms import EmailField
 import pandas as pd
 import smtplib
 from flask import Flask, render_template, request, redirect, send_from_directory, url_for, session
@@ -89,12 +88,6 @@ if not os.path.isfile('sqlite:///certifications.db'):
 
 email = os.environ.get('TEST_EMAIL')
 appps = os.environ.get('APP_PASS')
-
-# class SendEmailForm(FlaskForm):
-#     sender_name = StringField('Your Name', validators=[DataRequired()])
-#     sender_email = EmailField('Your Email', validators=[DataRequired()])
-#     subject = StringField('Subject', validators=[DataRequired()])
-#     message = StringField('Your message', validators=[DataRequired()])
 
 def Content(name, from_email, Message):
     message_content = f"""
