@@ -1,4 +1,6 @@
+from email.message import EmailMessage
 import os
+from django.forms import EmailField
 import pandas as pd
 import smtplib
 from flask import Flask, render_template, request, redirect, send_from_directory, url_for, session
@@ -46,11 +48,11 @@ app = Flask(__name__)
 
 bootstrap = Bootstrap(app)
 
-app.secret_key = "THIS IS A SECRET KEY $%12&*(VNIJG"
+app.secret_key = os.environ.get("RESUME_KEY")
 
 # ---------------------------------- DataBase SQLite -------------------------------------------------------------------
 # ---------------------------------- images certifications -------------------------------------------------------------
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///certifications.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL','sqlite:///certifications.db')
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -85,7 +87,34 @@ if not os.path.isfile('sqlite:///certifications.db'):
 
 # ---------------------------------- Email component contact me --------------------------------------------------------
 
+email = os.environ.get('TEST_EMAIL')
+appps = os.environ.get('APP_PASS')
 
+# class SendEmailForm(FlaskForm):
+#     sender_name = StringField('Your Name', validators=[DataRequired()])
+#     sender_email = EmailField('Your Email', validators=[DataRequired()])
+#     subject = StringField('Subject', validators=[DataRequired()])
+#     message = StringField('Your message', validators=[DataRequired()])
+
+def Content(name, from_email, Message):
+    message_content = f"""
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email</title>
+</head>
+    <h1>Email from:  {name}| Sent from: {from_email}</h1>
+<body>
+    <p>{Message}</p>
+</body>
+</html>
+    
+    
+    """
+    return message_content
 
 
 # ---------------------------------- Experiences lists ---------------------------------------------------------------
@@ -134,5 +163,30 @@ def home():
 def download():
     return send_from_directory('static', filename='Carlos Garcia English Resume 2022.pdf')
 
+
+@app.route("/send-email", methods=['GET', 'POST'])
+def send_email():
+    if request.method == "POST": 
+        msg = EmailMessage()
+        msg["From"] = email
+        msg['Subject'] = request.form.get('subject')
+        print(request.form.get('subject'))
+        sender_name = request.form.get('name')
+        sender_email = request.form.get('email')
+        sender_message = request.form.get('message')
+        print(sender_email, sender_message, sender_name)
+        msg['To'] = os.environ.get('MY_EMAIL')
+        msg_content = Content(name=sender_name, from_email=sender_email, Message= sender_message)
+        msg.set_content(msg_content, subtype='html')
+        with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
+            smtp.ehlo()
+            smtp.starttls()
+            smtp.ehlo()
+            smtp.login(email, appps)
+            smtp.send_message(msg)
+        return redirect(url_for('home'))
+
+
+# host='0.0.0.0', port='5000',
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port='5000', debug=True)
+    app.run( debug=True)

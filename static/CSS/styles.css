@@ -72,7 +72,8 @@ hr {
   }
 }
 
-@media (min-width:981px) and (min-height:950px) {
+/* 
+@media (max-width:981px) and (min-height:1000px) {
     .header_portion {
         position: relative;
         width: 100%;
@@ -104,7 +105,9 @@ hr {
     .content p {
       font-size: 1rem;
     }
-}
+
+    
+} */
 
 @media (max-width:980px) {
   .header_portion {
@@ -173,8 +176,44 @@ body {
 
 
 /* Bio section */
+@media (max-height:576px), (min-height:950px) {
+  .header_portion {
+      position: relative;
+      width: 100%;
+      width: 100vw;
+      margin: 0;
+      display: inline;
+      padding: 5% 2%;
+      font-size: larger;
+  }
 
-@media (min-width:981px) and (min-height:950px) {
+  .header_portion h1, p, a{
+    position: relative;
+    top: 3rem;
+    text-align: center;
+  }
+  .header_portion img {
+    float: left;
+    position: relative;
+    top: 0;
+  }
+  .content {
+      position: relative;
+      width: 100%;
+      width: 100vw;
+      padding: 15% 4%;
+      font-size: larger;
+  }
+  .content h1{
+    font-size: 2rem;
+  }
+  .content p {
+    font-size: 1rem;
+  }
+}
+
+/* 
+@media (max-width:1085px) and (min-height:1000px) {
 
       .header_portion h1, p, a{
         position: relative;
@@ -198,7 +237,7 @@ body {
       .content p {
         font-size: 1rem;
       }
-}
+} */
 
 @media (max-width:980px) {
   .content {

@@ -21,7 +21,7 @@
     }
   }
 
-  @media (min-width:981px) and (min-height:950px) {
+  @media (min-width:981px) and (min-height:951px) {
     .header_portion {
       background-image: url("../static/images/background-image.png");
       -webkit-background-size: cover;
@@ -100,10 +100,12 @@
             </br>
             I embarked into this world (programming world) by trying to understand better how to pitch a back-link post,
             in order to make it somehow appealing, I bought a course to learn about HTML and CSS.
-            After that, in february 2022, while still at Medtronic, I decided to learn Python with the aim to automatize a process at work
+            After that, in february 2022, while still at Medtronic, I decided to learn Python with the aim to automatize
+            a process at work
             that resulted really monotonous, so I bought another course. I fell in love. The different projects and
             applications that can be made through programming are endless. Now I am here, 100 days after my 100 days to
-            pro Python bootcamp. I am definitely no pro but I am better than when I started and I intend to keep on learning.
+            pro Python bootcamp. I am definitely no pro but I am better than when I started and I intend to keep on
+            learning.
 
           </p>
           <hr />
@@ -172,7 +174,7 @@
               contact me below.</p>
             <div class="row">
               <div class="col-md-9 mb-md-0 mb-5">
-                <form id="contact-form" name="contact-form" action="mailto:carlos.grh@outlook.com" method="POST">
+                <form id="contact-form" action="{{ url_for('send_email')}}" name="contact-form" method="post">
                   <div class="row">
                     <div class="col-md-6">
                       <div class="md-form mb-0">
@@ -205,11 +207,12 @@
 
                     </div>
                   </div>
+                  <div class="text-center text-md-left">
+                    <input class="btn btn-primary" type="submit" value="Send">
+                  </div>
                 </form>
 
-                <div class="text-center text-md-left">
-                  <input class="btn btn-primary" type="submit" value="Send">
-                </div>
+
                 <div class="status"></div>
               </div>
               <div class="col-md-3 text-center">
