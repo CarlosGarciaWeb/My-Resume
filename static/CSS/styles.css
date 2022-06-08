@@ -317,6 +317,47 @@ body {
   }
 }
 
+@media only screen and (max-width:425px) {
+ .heading {
+   margin-top: 0rem;
+ }
+ .downloadresume {
+  top: 0px;
+}
+}
+
+@media only screen and (max-width:376px) {
+  .background-img {
+    width: 50%;
+    height: auto;
+  }
+  .professional-experiences h2 {
+    font-size: 1.4rem;
+  }
+  .professional-experiences h3 {
+    font-size: 1.2rem;
+  }
+  .professional-experiences li {
+    font-size: 0.96rem;
+  }
+}
+
+@media only screen and (max-width:321px) {
+  .header_portion p {
+    font-size: 0.8rem;
+  }
+  .header_portion h1 {
+    font-size: 1.4rem;
+  }
+  .certificate {
+    width: 75%;
+    height: auto;
+  }
+  .carousel-control-prev, .carousel-control-next {
+    top: 48px;
+  }
+}
+
 /* aspirations container fluids*/
 
 
