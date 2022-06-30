@@ -2,10 +2,10 @@ from email.message import EmailMessage
 import os
 import pandas as pd
 import smtplib
-from flask import Flask, render_template, request, redirect, send_from_directory, url_for, session
+from flask import flash, Flask, render_template, request, redirect, send_from_directory, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
-from flask_wtf import FlaskForm
+from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import StringField, PasswordField, SubmitField, validators
 from wtforms.validators import DataRequired
 from datetime import date
@@ -44,6 +44,8 @@ def organize_cert_path():
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('RESUME_KEY')
+app.config['RECAPTCHA_PUBLIC_KEY'] = os.environ.get('RESUME_PUBLIC_KEY')
+app.config['RECAPTCHA_PRIVATE_KEY'] = os.environ.get('RESUME_PRIVATE_KEY')
 bootstrap = Bootstrap(app)
 
 
@@ -87,7 +89,10 @@ for position in range(len(dataframe)):
         db.session.commit()
 
 
+# ---------------------------------- Recaptcha form --------------------------------------------------------------------
 
+class RecaptchaForm(FlaskForm):
+    recaptcha = RecaptchaField()
 
 # ---------------------------------- Email component contact me --------------------------------------------------------
 
@@ -143,8 +148,32 @@ for list in range(len(jobs_list)):
 
 # ---------------------------------- Backend --------------------------------------------------------------------------
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def home():
+    form = RecaptchaForm()
+    
+    if form.validate_on_submit():
+        if request.method == "POST":
+            print("Worked")
+            msg = EmailMessage()
+            msg["From"] = email
+            msg['Subject'] = request.form.get('subject')
+            print(request.form.get('subject'))
+            sender_name = request.form.get('name')
+            sender_email = request.form.get('email')
+            sender_message = request.form.get('message')
+            print(sender_email, sender_message, sender_name)
+            msg['To'] = os.environ.get('MY_EMAIL')
+            msg_content = Content(name=sender_name, from_email=sender_email, Message= sender_message)
+            msg.set_content(msg_content, subtype='html')
+            with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
+                smtp.ehlo()
+                smtp.starttls()
+                smtp.ehlo()
+                smtp.login(email, appps)
+                smtp.send_message(msg)
+            flash('Your message was sent!')
+            return redirect(url_for('home'))
     img_info = db.session.query(Certifications).all()
     active_cert = img_info[0]
     cert_items = img_info[1:]
@@ -152,7 +181,7 @@ def home():
     job_resp = [resp[1:-1] for resp in experience_list]
     job_date = [date[-1] for date in experience_list]
     return render_template("index.html", img_actv=active_cert, cert_items=cert_items, company=experience_companies
-                           , job_date=job_date, job_resp=job_resp, job_title=job_title, age=age)
+                           , job_date=job_date, job_resp=job_resp, job_title=job_title, age=age, form=form)
 
 
 # -------------------------------- Download CV ------------------------------------------------------------------------
@@ -161,28 +190,6 @@ def home():
 def download():
     return send_from_directory('static', filename='Carlos Garcia English Resume 2022.pdf')
 
-
-@app.route("/send-email", methods=['GET', 'POST'])
-def send_email():
-    if request.method == "POST": 
-        msg = EmailMessage()
-        msg["From"] = email
-        msg['Subject'] = request.form.get('subject')
-        print(request.form.get('subject'))
-        sender_name = request.form.get('name')
-        sender_email = request.form.get('email')
-        sender_message = request.form.get('message')
-        print(sender_email, sender_message, sender_name)
-        msg['To'] = os.environ.get('MY_EMAIL')
-        msg_content = Content(name=sender_name, from_email=sender_email, Message= sender_message)
-        msg.set_content(msg_content, subtype='html')
-        with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
-            smtp.ehlo()
-            smtp.starttls()
-            smtp.ehlo()
-            smtp.login(email, appps)
-            smtp.send_message(msg)
-        return redirect(url_for('home'))
 
 
 # host='0.0.0.0', port='5000',

@@ -88,7 +88,15 @@
 
       <div class="col-md-8 content">
         <div id="about" class="biography">
-
+          {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                <ul class=flashes>
+                {% for message in messages %}
+                  <h1>{{ message }}</h1>
+                {% endfor %}
+                </ul>
+              {% endif %}
+            {% endwith %}
 
           <h2>About me</h2>
           <p>
@@ -176,7 +184,8 @@
               contact me below.</p>
             <div class="row">
               <div class="col-md-9 mb-md-0 mb-5">
-                <form id="contact-form" action="{{ url_for('send_email')}}" name="contact-form" method="post">
+                <form id="contact-form" action="{{ url_for('home')}}" name="contact-form" method="post">
+                  {{form.csrf_token}}
                   <div class="row">
                     <div class="col-md-6">
                       <div class="md-form mb-0">
@@ -210,6 +219,8 @@
                     </div>
                   </div>
                   <div class="text-center text-md-left">
+                    {{ form.recaptcha }}
+                    <br>
                     <input class="btn btn-primary" type="submit" value="Send">
                   </div>
                 </form>
