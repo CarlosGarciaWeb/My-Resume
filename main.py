@@ -188,7 +188,7 @@ def home():
 
 @app.route("/download")
 def download():
-    return send_from_directory('static', filename='Carlos Garcia English Resume 2022.pdf')
+    return send_from_directory('static', filename='Carlos Garcia English Resume 2022 Python Backend Developer.pdf')
 
 
 
